@@ -59,15 +59,18 @@ final class DynAgentsModuleParallel[F[_]: Monad](D: Drone[F], M: Machines[F]) ex
     }
   }
 
-  def update(old: WorldView) = for {
-    snap <- initial
-    changed = symdiff(old.alive.keySet, snap.alive.keySet)
-    pending = (old.pending -- changed).filterNot {
-      case (_, started) => (snap.time - started) >= 10.minutes
+  def update(old: WorldView) = {
+    // Why don't use for comprehension?
+    initial.map { snap =>
+      val changed = symdiff(old.alive.keySet, snap.alive.keySet)
+      val pending = (old.pending -- changed)
+        .filterNot {
+          case (_, started) => snap.time - started >= 10.minutes 
+        }
+      snap.copy(pending = pending)
     }
-    update = snap.copy(pending = pending)
-  } yield update
-
+  }
+  
   def act(world: WorldView): F[WorldView] = world match {
     case NeedsAgent(node) =>
       for {

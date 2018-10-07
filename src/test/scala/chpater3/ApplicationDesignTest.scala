@@ -1,7 +1,6 @@
 package chapter3
 
 import scalaz._, Scalaz._
-import Main._
 
 object Data {
   val node1   = MachineNode("1243d1af-828f-4ba3-9fc0-a19d86852b5a")

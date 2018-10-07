@@ -9,15 +9,13 @@ object `package` {
   def symdiff[T](a: Set[T], b: Set[T]): Set[T] = {
     (a union b) -- (a intersect b)
   }
-}
 
-object Main {
   implicit class EpochMillisStringContext(sc: StringContext) {
     val epoch = Prefix(EpochInterpolator, sc)
   }
-  
-  def main(args: Array[String]): Unit = {
-  }
+}
+
+object Main {
 }
 
 final case class Epoch(millis: Long) extends AnyVal {

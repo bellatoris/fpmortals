@@ -14,11 +14,13 @@ lazy val root = (project in file(".")).
       )),
     name := "fpmortals",
     libraryDependencies ++= Seq(
-      "com.github.mpilquist" %% "simulacrum"  % "0.13.0",
       "org.scalaz" %% "scalaz-core" % "7.2.26",
       "org.scala-lang" % "scala-reflect" % scalaVersion.value,
       "com.propensive" %% "contextual" % "1.1.0",
+      "eu.timepit" %% "refined-scalaz" % "0.9.2",
+      "com.github.mpilquist" %% "simulacrum" % "0.14.0",
       scalaTest
+
       /* "com.lihaoyi" % "ammonite" % "1.2.1" % "test" cross CrossVersion.full */
     )
     /* sourceGenerators in Test += Def.task { */
